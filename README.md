@@ -87,6 +87,22 @@ Yeah, I don't get this part. I don't really see how to run scripts without using
 
 Will get back to this when we have some other server running.
 
+--Brian 
+Essentially, it allows for easy identification of arrays 
+```
+length = redis.lpush('users:newest', 'user:goku')
+if length > 100
+  #trim is to we only keep 100 "newest" users
+  redis.rpop('users:newest')
+end
+```
+In this example code, we have an array of users that are denoted as 'users:newest' meaning that they are the latest users.
+So the function paramters(from my interpretation) is redis.lpush('array:identifier','array:newElement'), where identifier is the 'key'
+for this array so that its elements can be easily identified. In this case the identifier is newest, meaning that it contains the newest 
+users and the element goku is being pushed into it.
+
+The if statement below it will make it so that the last element of the array will be popped out if the array size is < 100. (The syntax to me is strange... because it looks like it would be equal to an array and not an integer, but i'm not entirely sure.) 
+
 ### Sets 
 
 I didn't know Redis even had this functionality. We can make sets!
